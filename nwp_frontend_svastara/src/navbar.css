@@ -1,0 +1,21 @@
+.navbar-container {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #042617;
+  }
+  
+  .logo {
+    height: 80px;
+    width: 110px;
+    margin-right: 20px;
+  }
+  
+  .title {
+    
+    color: #c3d6c8;
+    font-size: 30px;
+    font-weight: bold;
+    text-shadow: 3px 3px 3px #ababab;
+    font-family: 'Sofia'
+  }

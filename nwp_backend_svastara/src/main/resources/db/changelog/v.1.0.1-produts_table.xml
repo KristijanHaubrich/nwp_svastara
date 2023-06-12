@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="products_table" author="superuser" context="svastara">
+        <createTable tableName="products">
+
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+
+            <column name="name" type="varchar">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="description" type="varchar">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="price" type="varchar">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="client_id" type="bigint" autoIncrement="true">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseColumnNames="client_id"
+                baseTableName="products"
+                constraintName="fk_client_of_product"
+                deferrable="true"
+                initiallyDeferred="true"
+                onDelete="CASCADE"
+                onUpdate="RESTRICT"
+                referencedColumnNames="id"
+                referencedTableName="clients"
+        />
+
+        <addUniqueConstraint
+                columnNames="name"
+                constraintName="unique_product_name"
+                deferrable="true"
+                disabled="true"
+                initiallyDeferred="true"
+                schemaName="public"
+                tableName="products"
+        />
+
+
+    </changeSet>
+
+
+
+</databaseChangeLog>
