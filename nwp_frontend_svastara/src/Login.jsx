@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
 import './login.css'
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { login,logout} from './redux/loginReducer';
 import apiRequest from './api/apiRequest';
 import { useNavigate } from 'react-router-dom';
 import checkTokenExpiration from './utils/checkTokenExpiration';
+import { useDispatch } from 'react-redux';
+import { setClientData } from './redux/clientReducer';
+import { login } from './redux/loginReducer';
 
 const LoginPage = () => {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const dispatch = useDispatch()
-  //const navigation = useNavigate()
+  const navigation = useNavigate()
 
  
   const handleEmailChange = (e) => {
@@ -35,13 +36,17 @@ const LoginPage = () => {
     //   const response= await apiRequest(token).get(`/clients`)
     //   console.log(response.data)
     // }
-    
-    const response = await apiRequest("").post("/public/authenticate",{password:password,email:email})
+    const body = {password:password,email:email}
+    const response = await apiRequest("").post("/public/authenticate",body)
 
 
     if(response?.data){
       if(response.data.isClientFound && response.data.isPasswordCorrect){
         //ulogiraj korisnika
+        dispatch(login())
+        console.log(response.data.client)
+        dispatch(setClientData({data:response.data.client}))
+        navigation("/clientPage")
       }else if(!response.data.isClientFound){
         //izbaci upozorenje za nepostojećeg korisnika
       }else if(!response.data.isPasswordCorrect){
@@ -50,8 +55,6 @@ const LoginPage = () => {
     }else{
       //izbaci upozorenje za problem s konekcijom na bazu
     }
-
-    console.log(response.data)
     
   };
 

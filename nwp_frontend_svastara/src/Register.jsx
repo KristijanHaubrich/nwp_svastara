@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import './register.css'
 import { Link } from 'react-router-dom';
 import apiRequest from './api/apiRequest';
+import { useNavigate } from 'react-router-dom';
 
 const RegisterPage = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [reppassword, setRepPassword] = useState('');
+  const navigate = useNavigate()
   const handleNameChange = (e) => {
     setName(e.target.value);
   };
@@ -38,6 +40,7 @@ const RegisterPage = () => {
           if(response?.data){
             if(response.data.validate){
               console.log(response.data)
+              navigate("/login")
               //korisnik uspjesno registriran
             }else{
               //izbaci error korisnik nije uspjesno registriran

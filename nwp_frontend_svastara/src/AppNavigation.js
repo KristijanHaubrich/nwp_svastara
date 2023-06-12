@@ -2,19 +2,22 @@ import Login from "./Login"
 import Register from "./Register"
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './Navbar';
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
+import ClientProfilePage from "./ClientProfilePage";
+
 
 const AppNavigation = () => {
     const isLoggedIn = useSelector(state=>state.login.isLoggedIn)
-    
+
     if(isLoggedIn){
       return(
         <Router>
         <Navbar /> 
         <Routes>
-          <Route path="/" element={<Login/>}/>
+          <Route path="/" element={<ClientProfilePage/>}/>
           <Route path="/login" element={ <Login/>} />    
-          <Route path="/register" element={ <Register/>} />  
+          <Route path="/register" element={ <Register/>} />
+          <Route path="/clientPage" element={ <ClientProfilePage/>} />    
         </Routes>
       </Router> 
       )
@@ -25,7 +28,8 @@ const AppNavigation = () => {
         <Routes>
           <Route path="/" element={<Login/>}/>
           <Route path="/login" element={ <Login/>} />    
-          <Route path="/register" element={ <Register/>} />  
+          <Route path="/register" element={ <Register/>} /> 
+          <Route path="/clientPage" element={ <ClientProfilePage/>} />     
         </Routes>
       </Router> 
       )
