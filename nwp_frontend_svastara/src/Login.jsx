@@ -26,7 +26,7 @@ const LoginPage = () => {
 
   const handleSubmit =  async (e) => {
     e.preventDefault()
-   
+
     // const token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0b21vLm1hZGphckBnbWFpbC5jb20iLCJpYXQiOjE2ODYyNTI1NDEsImV4cCI6MTY4NzExNjU0MX0.Dvps1W7uuNI3AFdEieNJzQvEmTC_HQaGhT9_Yu2jj44"
     // const isTokenExpired = checkTokenExpiration(token)
     
@@ -36,10 +36,10 @@ const LoginPage = () => {
     //   const response= await apiRequest(token).get(`/clients`)
     //   console.log(response.data)
     // }
+
     const body = {password:password,email:email}
     const response = await apiRequest("").post("/public/authenticate",body)
-
-
+   
     if(response?.data){
       if(response.data.isClientFound && response.data.isPasswordCorrect){
         //ulogiraj korisnika

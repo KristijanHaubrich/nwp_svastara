@@ -7,10 +7,9 @@ import com.example.nwp_backend_svastara.dto.response.ClientDetailsResponseDto;
 import com.example.nwp_backend_svastara.service.ClientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
+@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 @RequestMapping("/api/clients")
 public class ClientController {
     private final ClientService clientService;

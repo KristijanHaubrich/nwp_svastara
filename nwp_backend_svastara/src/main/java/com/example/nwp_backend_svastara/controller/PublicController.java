@@ -7,10 +7,9 @@ import com.example.nwp_backend_svastara.dto.response.BooleanResponseDto;
 import com.example.nwp_backend_svastara.service.PublicService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
+@CrossOrigin(origins = "http://localhost:3000",maxAge = 3600)
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 @RequestMapping("/api/public")
 public class PublicController {
     private final PublicService publicService;
@@ -22,6 +21,7 @@ public class PublicController {
     public BooleanResponseDto registerClient(@RequestBody RegisterRequestDto registerRequestDto){
         return publicService.registerClient(registerRequestDto);
     }
+
     @GetMapping("/checkClientEmail/{email}")
     public BooleanResponseDto checkClientEmail(@PathVariable String email){
         return publicService.checkClientEmail(email);
