@@ -30,39 +30,41 @@ const RegisterPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if(password === reppassword){
-      const response = await apiRequest("").get(`/public/checkClientEmail/${email}`)
-      console.log(response.data)
-      if(response?.data){
-        if(response.data.validate){
-          //baci error korisnik vec postoji
-          toast.error("User with that email is already registered");
-        }else{
-          const body = {name: name,password: password,email: email}
-          const response = await apiRequest("").post("/public/registerClient",body)
-          if(response?.data){
-            if(response.data.validate){
-              console.log(response.data)
-              navigate("/login")
-              //korisnik uspjesno registriran
-              toast.error("You are sucessfully registered!");
-            }else{
-              //izbaci error korisnik nije uspjesno registriran
-              toast.error("Error happened, user not registered!");
+    if(password === "" || reppassword === "" || name === "" || email === ""){
+      toast.error("You didn't enter all information");
+    }else{
+      if(password === reppassword){
+        const response = await apiRequest("").get(`/public/checkClientEmail/${email}`)
+        console.log(response.data)
+        if(response?.data){
+          if(response.data.validate){
+            //baci error korisnik vec postoji
+            toast.error("User with that email is already registered");
+          }else{
+            const body = {name: name,password: password,email: email}
+            const response = await apiRequest("").post("/public/registerClient",body)
+            if(response?.data){
+              if(response.data.validate){
+                toast.success("Korisnik je uspješno registriran")
+                navigate("/login")
+                //korisnik uspjesno registriran
+                
+              }else{
+                //izbaci error korisnik nije uspjesno registriran
+                toast.error("Error happened, user not registered!");
+              }
             }
-          }
+          } 
+        }else{
+          //izbaci error server error
+          toast.error("Server error happened,try again!");
         }
       }else{
-        //izbaci error server error
-        toast.error("Server error happened, wait for a moment!");
+        //izbaci error lozinka se ne podudara s ponovljenom
+        toast.error("Passwords not matching!");
+  
       }
-    }else{
-      //izbaci error lozinka se ne podudara s ponovljenom
-      toast.error("Passwords not matching!");
-
     }
-    
-
     
   };
 
