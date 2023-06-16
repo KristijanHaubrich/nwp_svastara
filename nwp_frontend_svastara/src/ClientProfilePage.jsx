@@ -10,26 +10,27 @@ import { clearClientData } from './redux/clientReducer';
 
 
 const ClientProfilePage = () => {
-  const isLoggedIn = useSelector(state=>state.login.isLoggedIn)
   const client = useSelector(state=>state.client.data)
   const token = client.accessToken
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
+  const logoff = () => {
+    dispatch(logout())
+    dispatch(clearClientData())
+    navigate("/login")
+  }
+
   useEffect(() => {
     const setData = async () => {
       if(checkTokenExpiration(token)){
-        dispatch(logout())
-        dispatch(clearClientData())
-        navigate("/login")
+        logoff()
       }else{
         const response = await apiRequest(token).get(`/products`)
         console.log(response.data)
       }
-
-
-
     }
+
     setData()
   },[]);
 
