@@ -23,7 +23,7 @@ const ClientProfilePage = () => {
         dispatch(clearClientData())
         navigate("/login")
       }else{
-        const response = await apiRequest(token).get(`/clients`)
+        const response = await apiRequest(token).get(`/products`)
         console.log(response.data)
       }
 

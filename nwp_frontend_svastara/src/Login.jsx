@@ -7,6 +7,8 @@ import checkTokenExpiration from './utils/checkTokenExpiration';
 import { useDispatch } from 'react-redux';
 import { setClientData } from './redux/clientReducer';
 import { login } from './redux/loginReducer';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const LoginPage = () => {
 
@@ -48,12 +50,13 @@ const LoginPage = () => {
         dispatch(setClientData({data:response.data.client}))
         navigation("/clientPage")
       }else if(!response.data.isClientFound){
-        //izbaci upozorenje za nepostojećeg korisnika
+        toast.error("User is not registered, please register!");
       }else if(!response.data.isPasswordCorrect){
-        //izbaci upozorenje za krivu lozinku
+        toast.error("Wrong password!");
       }
     }else{
       //izbaci upozorenje za problem s konekcijom na bazu
+      toast.error("Server error!");
     }
     
   };
@@ -80,6 +83,7 @@ const LoginPage = () => {
       </div>
         
       </form>
+      <ToastContainer />
 
      
     </div>

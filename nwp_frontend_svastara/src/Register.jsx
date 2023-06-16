@@ -3,6 +3,8 @@ import './register.css'
 import { Link } from 'react-router-dom';
 import apiRequest from './api/apiRequest';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const RegisterPage = () => {
   const [name, setName] = useState('');
@@ -34,6 +36,7 @@ const RegisterPage = () => {
       if(response?.data){
         if(response.data.validate){
           //baci error korisnik vec postoji
+          toast.error("User with that email is already registered");
         }else{
           const body = {name: name,password: password,email: email}
           const response = await apiRequest("").post("/public/registerClient",body)
@@ -42,16 +45,21 @@ const RegisterPage = () => {
               console.log(response.data)
               navigate("/login")
               //korisnik uspjesno registriran
+              toast.error("You are sucessfully registered!");
             }else{
               //izbaci error korisnik nije uspjesno registriran
+              toast.error("Error happened, user not registered!");
             }
           }
         }
       }else{
         //izbaci error server error
+        toast.error("Server error happened, wait for a moment!");
       }
     }else{
       //izbaci error lozinka se ne podudara s ponovljenom
+      toast.error("Passwords not matching!");
+
     }
     
 
@@ -90,8 +98,12 @@ const RegisterPage = () => {
         
       </form>
 
+      <ToastContainer />
+
      
     </div>
+
+    
   );
 };
 
