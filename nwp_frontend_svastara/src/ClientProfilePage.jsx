@@ -11,7 +11,6 @@ import Products from './Products';
 import AddProduct from './AddProduct';
 import './products.css'
 
-
 const ClientProfilePage =  () => {
   const [products, setProducts] = useState([]);
 
@@ -20,12 +19,6 @@ const ClientProfilePage =  () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   
-  const getProducts = async() => {
-    const response= await apiRequest(token).get(`/products`)
-    setProducts(response.data.products)
-    console.log(response.data.products)
-  };
-
   const logoff = () => {
     dispatch(logout())
     dispatch(clearClientData())
@@ -33,15 +26,9 @@ const ClientProfilePage =  () => {
   }
 
   useEffect(() => {
-    getProducts();
 
-    const setData = async () => {
-      if(checkTokenExpiration(token)){
-        logoff()
-      }else{
-        const response = await apiRequest(token).get("/products")
-
-      }
+    const setData =  () => {
+      setProducts(client.products)
     }
 
     setData()

@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import './addproduct.css';
 import apiRequest from './api/apiRequest';
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import checkTokenExpiration from './utils/checkTokenExpiration';
+import { setClientData,clearClientData } from './redux/clientReducer';
+import { useNavigate } from 'react-router-dom';
+import { logout } from './redux/loginReducer';
 
 const AddProduct = () => {
   const [name, setName] = useState('');
@@ -13,27 +17,56 @@ const AddProduct = () => {
 
   const client = useSelector(state=>state.client.data)
   const token = client.accessToken
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  const logoff = () => {
+    dispatch(logout())
+    dispatch(clearClientData())
+    navigate("/login")
+  }
+
 
   const handleSubmit = async(event) => {
     event.preventDefault();
 
+    if(checkTokenExpiration(token)){
+      logoff()
+    }else{
 
-    if(name=== "" || price === "" || description === "" || clientEmail === ""){
-      toast.error("You didn't enter all information");
-      console.log(client)
-    }
-    else if(client.email!== clientEmail)
-    {
-      toast.error("You have entered wrong email!");
-    }
-    
-    else{
-      const body = {name:name,price:price, description:description, clientEmail:clientEmail}
-      const response = await apiRequest(token).post("/products/add",body)
-      window.location.reload(true)
+      if(name=== "" || price === "" || description === "" || clientEmail === ""){
+        toast.error("You didn't enter all information");
+        console.log(client)
+      }
+      else if(client.email!== clientEmail)
+      {
+        toast.error("You have entered wrong email!");
+      }
       
-      console.log(response.data)
+      else{
+        const body = {name:name,price:price, description:description, clientEmail:clientEmail}
+        const response = await apiRequest(token).post("/products/add",body)
+  
+        if(response?.data){
+           //ako je produkt dodan dohvati podatke iz baze  o korisniku i updateaj korisnika u lokalnoj bazi
+          if(response.data.isProductSaved){
+            //dohvacanje podataka o klijentu s novim proizvodom
+            const response = await apiRequest(token).get(`/clients/${client.email}`)
+            if(response?.data){
+              //updatanje podataka o klijentu na lokalnoj bazi
+              if(response.data.isClientFound){
+                dispatch(setClientData({data:response.data.client}))
+              }
+            }
+          }
+        }
+        window.location.reload(true)
+        
+        console.log(response.data)
+      }
     }
+
+   
   };
 
   return (
