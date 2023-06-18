@@ -1,0 +1,28 @@
+.product-card {
+    background-color: #71d9ba;
+    padding: 10px;
+    width: 300px;
+    height: 300px;
+    margin: 10px;
+    border-radius: 5px;
+    /* Additional styling properties */
+  }
+  .product-card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  .button{
+    background-color: #5e0d08;
+    width: 100px;
+    position: relative;
+    top: 100px;
+    left: 100px;
+   
+  }
+  .button:hover{
+    background-color: black;
+    color: white;
+  }
+  
