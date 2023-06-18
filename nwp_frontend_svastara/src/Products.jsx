@@ -26,6 +26,25 @@ const Products = ({ product }) => {
       console.error("Error deleting product:", error);
       
     }
+  }
+  const updateProduct = async () => {
+    try {
+      const body= {name: product.name,description: password,price: product.price}
+      const response = await apiRequest(token).patch("products/update", body);
+    
+
+      if(response){
+
+        window.location.reload(true)
+      }
+
+    
+    } catch (error) {
+
+      toast.error("Error happened!");
+      console.error("Error deleting product:", error);
+      
+    }
   };
 
   return (
@@ -35,6 +54,9 @@ const Products = ({ product }) => {
       <p>Description: {product.description}</p>
       <button className="button" onClick={deleteProduct}>
         Delete product
+      </button>
+      <button className="button" onClick={updateProduct}>
+        Update product
       </button>
       <ToastContainer />
     </div>

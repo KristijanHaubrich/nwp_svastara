@@ -18,7 +18,8 @@
     width: 100px;
     position: relative;
     top: 100px;
-    left: 100px;
+    left: 40px;
+    margin-left: 10px;
    
   }
   .button:hover{
