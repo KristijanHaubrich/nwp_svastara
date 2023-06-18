@@ -4,27 +4,33 @@ import apiRequest from "./api/apiRequest";
 import { useSelector } from "react-redux";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { setClientData } from "./redux/clientReducer";
+import { useDispatch } from "react-redux";
 
 const Products = ({ product }) => {
   const client = useSelector((state) => state.client.data);
   const token = client.accessToken;
+  const dispatch = useDispatch()
   const deleteProduct = async () => {
     try {
-      
       const response = await apiRequest(token).delete(`products/${product.name}`);
-    
-
       if(response){
-
-        window.location.reload(true)
+        if(response.data.validate){
+          //dohvacanje podataka o klijentu s novim podacima
+          const response = await apiRequest(token).get(`/clients/${client.email}`)
+          if(response?.data){
+            //updatanje podataka o klijentu na lokalnoj bazi
+            if(response.data.isClientFound){
+              dispatch(setClientData({data:response.data.client}))
+              window.location.reload(true)
+            }
+          }
+        }
       }
-
-    
     } catch (error) {
 
       toast.error("Error happened!");
       console.error("Error deleting product:", error);
-      
     }
   };
 
