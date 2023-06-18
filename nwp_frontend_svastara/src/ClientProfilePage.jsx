@@ -26,7 +26,7 @@ const ClientProfilePage = () => {
       if(checkTokenExpiration(token)){
         logoff()
       }else{
-        const response = await apiRequest(token).get(`/products`)
+        const response = await apiRequest(token).get("/products")
         console.log(response.data)
       }
     }
