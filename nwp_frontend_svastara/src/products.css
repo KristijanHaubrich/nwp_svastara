@@ -16,14 +16,64 @@
   .button{
     background-color: #5e0d08;
     width: 100px;
-    position: relative;
-    top: 100px;
     left: 40px;
-    margin-left: 10px;
+    
+    margin: 10px;
    
   }
   .button:hover{
     background-color: black;
     color: white;
   }
+  .product-card {
+    background-color: #71d9ba;
+    padding: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
   
+  .product-card h3 {
+    margin-top: 0;
+  }
+  
+  .product-card .input-group {
+    margin-bottom: 10px;
+  }
+  
+  .product-card label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .product-card input[type="text"],
+  .product-card textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+  }
+  
+  .product-card button {
+    margin-top: 10px;
+  }
+  
+  #price{width: 100px;}
+  #name{
+    width: 250px;
+  }
+
+  .newButton{
+   background-color:  #945512;
+   width: 100px;
+   height: 80px;
+   
+  }
+  .newButton:hover{
+    background-color: #042617;
+    
+  }
+  #parentnew{
+    text-align: center;
+  }

@@ -13,6 +13,7 @@ import './products.css'
 
 const ClientProfilePage =  () => {
   const [products, setProducts] = useState([]);
+  const [newProduct, setNewProductPage] = useState(false);
 
   const client = useSelector(state=>state.client.data)
   const token = client.accessToken
@@ -23,6 +24,9 @@ const ClientProfilePage =  () => {
     dispatch(logout())
     dispatch(clearClientData())
     navigate("/login")
+  }
+  const toogleview = ()=>{
+    setNewProductPage(!newProduct)
   }
 
   useEffect(() => {
@@ -51,8 +55,15 @@ const ClientProfilePage =  () => {
        
       </div>
       )}
-        
- <AddProduct/>
+    
+    {newProduct ? (
+     <AddProduct setNewProductPage={setNewProductPage}/>
+    ) : (
+
+      <div id="parentnew"><button className='newButton' onClick={toogleview}>Add new product</button></div>
+ 
+    )}
+ 
     </div>
     
   );

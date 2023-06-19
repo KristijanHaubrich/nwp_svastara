@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './Navbar';
 import { useSelector,useDispatch } from "react-redux";
 import ClientProfilePage from "./ClientProfilePage";
+import NavbarLogoff from "./NavbarLogoff";
 
 
 const AppNavigation = () => {
@@ -12,7 +13,7 @@ const AppNavigation = () => {
     if(isLoggedIn){
       return(
         <Router>
-        <Navbar /> 
+        <NavbarLogoff /> 
         <Routes>
           <Route path="/" element={<ClientProfilePage/>}/>
           <Route path="/login" element={ <Login/>} />    

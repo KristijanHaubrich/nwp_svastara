@@ -19,3 +19,8 @@
     text-shadow: 3px 3px 3px #ababab;
     font-family: 'Sofia'
   }
+ #button{
+  height: 60px;
+  margin-left: auto;
+  background-color: #945512;
+ }

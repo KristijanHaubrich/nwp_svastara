@@ -10,8 +10,21 @@ import checkTokenExpiration from "./utils/checkTokenExpiration";
 import { useNavigate } from "react-router-dom";
 import { logout } from "./redux/loginReducer";
 import { clearClientData } from "./redux/clientReducer";
+import { useState } from "react";
 
 const Products = ({ product }) => {
+  const [updatePressed, setUpdatePressed] = useState(false);
+  const [editedProduct, setEditedProduct] = useState({ ...product });
+
+  const toggleEditMode = () => {
+    setUpdatePressed(!updatePressed);
+    setEditedProduct({ ...product }); // Reset the edited product to the current product data
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setEditedProduct({ ...editedProduct, [name]: value });
+  };
   const client = useSelector((state) => state.client.data);
   const token = client.accessToken;
   const dispatch = useDispatch()
@@ -52,37 +65,94 @@ const Products = ({ product }) => {
     }
   }
   const updateProduct = async () => {
-    try {
-      const body= {name: product.name,description: password,price: product.price}
-      const response = await apiRequest(token).patch("products/update", body);
-    
-
-      if(response){
-
-        window.location.reload(true)
-      }
-
-    
-    } catch (error) {
-
-      toast.error("Error happened!");
-      console.error("Error deleting product:", error);
-      
-    }
+    toggleEditMode();
   };
+
+  const saveChanges = async () => {
+    console.log(editedProduct)
+    const body = {name: editedProduct.name,price: editedProduct.price,description: editedProduct.description}
+    console.log(body)
+    try {
+      const response = await apiRequest(token).patch(`/products/update`, body);
+      console.log(response.data)
+      if (response.data.isProductUpdated) {
+        toggleEditMode();
+        toast.success("Product updated successfully!");
+      }
+    } catch (error) {
+      toast.error("Error occurred while updating the product!");
+      console.error("Error updating product:", error);
+    }
+    
+  toggleEditMode();
+  };
+
+  const cancelChanges = async() =>{
+    toggleEditMode();
+  }
 
   return (
     <div className="product-card">
-      <h3>{product.name}</h3>
+
+{updatePressed ? (
+        <div>
+         <div className="input-group">
+            <label htmlFor="name">Name:</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={editedProduct.name}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className="input-group">
+            <label htmlFor="price">Price:</label>
+            <input
+              type="number"
+              id="price"
+              name="price"
+              value={editedProduct.price}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className="input-group">
+            <label htmlFor="description">Description:</label>
+            <textarea
+              id="description"
+              name="description"
+              value={editedProduct.description}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div>
+             <button className="button" onClick={saveChanges}>Save</button>
+          <button className="button" onClick={cancelChanges}>Cancel</button>
+          </div>
+         
+        </div>
+      ) : (
+        <div>
+        <h3>{product.name}</h3>
       <p>Price: ${product.price}</p>
       <p>Description: {product.description}</p>
+
+      <div>
       <button className="button" onClick={deleteProduct}>
         Delete product
       </button>
       <button className="button" onClick={updateProduct}>
         Update product
       </button>
+
+      </div>
+      
       <ToastContainer />
+        </div>
+      )
+      
+      
+}
     </div>
   );
 };

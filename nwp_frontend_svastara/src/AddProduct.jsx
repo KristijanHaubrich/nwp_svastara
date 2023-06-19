@@ -9,11 +9,12 @@ import { setClientData,clearClientData } from './redux/clientReducer';
 import { useNavigate } from 'react-router-dom';
 import { logout } from './redux/loginReducer';
 
-const AddProduct = () => {
+const AddProduct = ({ setNewProductPage }) => {
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');
   const [clientEmail, setClientEmail] = useState('');
+  const [isHidden, setIsHidden] = useState(false);
 
   const client = useSelector(state=>state.client.data)
   const token = client.accessToken
@@ -24,6 +25,11 @@ const AddProduct = () => {
     dispatch(logout())
     dispatch(clearClientData())
     navigate("/login")
+  }
+
+  const hide =()=>{
+    setNewProductPage(false)
+    setIsHidden(!isHidden)
   }
 
 
@@ -70,8 +76,13 @@ const AddProduct = () => {
   };
 
   return (
+
     <div className="add-product-container">
-      <h2>Add Product</h2>
+      {isHidden? (<></>):
+      (
+        <>
+        
+        <h2>Add Product</h2>
       <form className="add-product-form" onSubmit={handleSubmit}>
         {}
         <div>
@@ -114,9 +125,17 @@ const AddProduct = () => {
           />
         </div>
         {}
-        <button type="submit">Add Product</button>
+        <button className= "button" type="submit">Add Product</button>
+        <button className='button' onClick={hide}>Cancel</button>
+
       </form>
       <ToastContainer />
+        
+        </>
+
+        
+      )}
+      
     </div>
   );
 };
