@@ -1,6 +1,6 @@
 package com.example.nwp_backend_svastara.dto.response;
 
-import com.example.nwp_backend_svastara.model.Product;
+import com.example.nwp_backend_svastara.dto.ProductWithClientEmailDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -10,5 +10,5 @@ import java.util.List;
 @AllArgsConstructor
 public class AllProductsResponseDto {
     private Boolean productsExist;
-    private List<Product> products;
+    private List<ProductWithClientEmailDto> products;
 }

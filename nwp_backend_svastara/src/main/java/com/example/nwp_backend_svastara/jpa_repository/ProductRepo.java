@@ -1,6 +1,5 @@
 package com.example.nwp_backend_svastara.jpa_repository;
 
-import com.example.nwp_backend_svastara.model.Client;
 import com.example.nwp_backend_svastara.model.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 

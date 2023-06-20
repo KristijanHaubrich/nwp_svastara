@@ -1,16 +1,19 @@
 package com.example.nwp_backend_svastara.service;
 
+import com.example.nwp_backend_svastara.dto.ProductWithClientEmailDto;
 import com.example.nwp_backend_svastara.dto.request.NewProductRequestDto;
 import com.example.nwp_backend_svastara.dto.request.UpdateProductRequestDto;
 import com.example.nwp_backend_svastara.dto.response.*;
 import com.example.nwp_backend_svastara.jpa_repository.ClientRepo;
 import com.example.nwp_backend_svastara.jpa_repository.ProductRepo;
+import com.example.nwp_backend_svastara.mapper.ProductMapper;
 import com.example.nwp_backend_svastara.model.Client;
 import com.example.nwp_backend_svastara.model.Product;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,6 +22,7 @@ import java.util.Optional;
 public class ProductService {
     private final ProductRepo productRepo;
     private final ClientRepo clientRepo;
+    private final ProductMapper productMapper;
 
     @Transactional
     public NewProductResponseDto addProduct(NewProductRequestDto newProductRequestDto){
@@ -62,7 +66,15 @@ public class ProductService {
 
     @Transactional
     public AllProductsResponseDto getAllProducts(){
-        List<Product> products = productRepo.findAll();
+        List<Product> dbProducts = productRepo.findAll();
+        List<ProductWithClientEmailDto> products = new ArrayList<>();
+        dbProducts.forEach(
+                product -> {
+                    ProductWithClientEmailDto productWithEmail = productMapper.map(product);
+                    productWithEmail.setClientEmail(product.getClient().getEmail());
+                    products.add(productWithEmail);
+                }
+        );
         Boolean noProducts = products.isEmpty();
         return new AllProductsResponseDto(!noProducts,products);
     }
