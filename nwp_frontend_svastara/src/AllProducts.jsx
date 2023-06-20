@@ -29,6 +29,10 @@ const AllProducts = () => {
 
   useEffect(() => {
     const fetchProducts = async () => {
+      if(checkTokenExpiration(token)){
+        logoff()
+        return
+      }
       try {
         const response = await apiRequest(token).get(`/products`);
         console.log(response.data.products);

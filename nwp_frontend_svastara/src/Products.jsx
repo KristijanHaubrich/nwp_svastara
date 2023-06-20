@@ -41,6 +41,7 @@ const Products = ({ product, showButtons, showEmail }) => {
     try {
       if(checkTokenExpiration(token)){
         logoff()
+        return
       }else{
         const response = await apiRequest(token).delete(`products/${product.name}`);
         if(response){
@@ -69,6 +70,10 @@ const Products = ({ product, showButtons, showEmail }) => {
   };
 
   const saveChanges = async () => {
+    if(checkTokenExpiration(token)){
+      logoff()
+      return
+    }
     console.log(editedProduct)
     const body = {name: editedProduct.name,price: editedProduct.price,description: editedProduct.description}
     console.log(body)

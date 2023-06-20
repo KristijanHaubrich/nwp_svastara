@@ -16,15 +16,7 @@ const ClientProfilePage =  () => {
   const [newProduct, setNewProductPage] = useState(false);
 
   const client = useSelector(state=>state.client.data)
-  const token = client.accessToken
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
   
-  const logoff = () => {
-    dispatch(logout())
-    dispatch(clearClientData())
-    navigate("/login")
-  }
   const toogleview = ()=>{
     setNewProductPage(!newProduct)
   }
