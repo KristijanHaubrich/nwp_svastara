@@ -136,7 +136,7 @@ const Products = ({ product, showButtons, showEmail }) => {
         <h3>{product.name}</h3>
       <p>Price: ${product.price}</p>
       <p>Description: {product.description}</p>
-      {showEmail ? (<p>Email: {product.email}</p>):(<></>)}
+      {showEmail ? (<p>Email: {product.clientEmail}</p>):(<></>)}
 {showButtons? (
 <div>
       <button className="button" onClick={deleteProduct}>
