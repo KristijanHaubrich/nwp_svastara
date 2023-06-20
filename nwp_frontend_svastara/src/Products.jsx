@@ -12,7 +12,7 @@ import { logout } from "./redux/loginReducer";
 import { clearClientData } from "./redux/clientReducer";
 import { useState } from "react";
 
-const Products = ({ product }) => {
+const Products = ({ product, showButtons, showEmail }) => {
   const [updatePressed, setUpdatePressed] = useState(false);
   const [editedProduct, setEditedProduct] = useState({ ...product });
 
@@ -136,8 +136,9 @@ const Products = ({ product }) => {
         <h3>{product.name}</h3>
       <p>Price: ${product.price}</p>
       <p>Description: {product.description}</p>
-
-      <div>
+      {showEmail ? (<p>Email: {product.email}</p>):(<></>)}
+{showButtons? (
+<div>
       <button className="button" onClick={deleteProduct}>
         Delete product
       </button>
@@ -146,6 +147,9 @@ const Products = ({ product }) => {
       </button>
 
       </div>
+
+):(<></>)}
+      
       
       <ToastContainer />
         </div>

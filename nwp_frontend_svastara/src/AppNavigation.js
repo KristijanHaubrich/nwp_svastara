@@ -5,6 +5,7 @@ import Navbar from './Navbar';
 import { useSelector,useDispatch } from "react-redux";
 import ClientProfilePage from "./ClientProfilePage";
 import NavbarLogoff from "./NavbarLogoff";
+import AllProducts from "./AllProducts";
 
 
 const AppNavigation = () => {
@@ -19,6 +20,7 @@ const AppNavigation = () => {
           <Route path="/login" element={ <Login/>} />    
           <Route path="/register" element={ <Register/>} />
           <Route path="/clientPage" element={ <ClientProfilePage/>} />    
+          <Route path="/allproducts" element= {<AllProducts/>} />
         </Routes>
       </Router> 
       )

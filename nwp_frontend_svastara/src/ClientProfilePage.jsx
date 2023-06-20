@@ -49,7 +49,7 @@ const ClientProfilePage =  () => {
       ) : (
         <div className="product-card-container">
         {products.map((product) => (
-          <Products key={product.id} product={product} />
+          <Products key={product.id} product={product}  showButtons={true} />
           
         ))}
        
