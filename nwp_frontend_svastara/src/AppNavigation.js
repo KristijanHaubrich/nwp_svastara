@@ -6,6 +6,7 @@ import { useSelector,useDispatch } from "react-redux";
 import ClientProfilePage from "./ClientProfilePage";
 import NavbarLogoff from "./NavbarLogoff";
 import AllProducts from "./AllProducts";
+import ChangePassword from "./ChangePassword";
 
 
 const AppNavigation = () => {
@@ -17,6 +18,7 @@ const AppNavigation = () => {
         <NavbarLogoff /> 
         <Routes>
           <Route path="/" element={<ClientProfilePage/>}/>
+          <Route path="/changePass" element={ <ChangePassword/>} />    
           <Route path="/login" element={ <Login/>} />    
           <Route path="/register" element={ <Register/>} />
           <Route path="/clientPage" element={ <ClientProfilePage/>} />    
@@ -30,9 +32,11 @@ const AppNavigation = () => {
         <Navbar /> 
         <Routes>
           <Route path="/" element={<Login/>}/>
-          <Route path="/login" element={ <Login/>} />    
+          <Route path="/login" element={ <Login/>} /> 
+          <Route path="/changePass" element={ <ChangePassword/>} />      
           <Route path="/register" element={ <Register/>} /> 
-          <Route path="/clientPage" element={ <ClientProfilePage/>} />     
+          <Route path="/clientPage" element={ <ClientProfilePage/>} />
+          <Route path="/allproducts" element= {<AllProducts/>} />     
         </Routes>
       </Router> 
       )

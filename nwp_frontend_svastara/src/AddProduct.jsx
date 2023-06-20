@@ -13,7 +13,6 @@ const AddProduct = ({ setNewProductPage }) => {
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');
-  const [clientEmail, setClientEmail] = useState('');
   const [isHidden, setIsHidden] = useState(false);
 
   const client = useSelector(state=>state.client.data)
@@ -40,17 +39,13 @@ const AddProduct = ({ setNewProductPage }) => {
       logoff()
     }else{
 
-      if(name=== "" || price === "" || description === "" || clientEmail === ""){
+      if(name=== "" || price === "" || description === ""){
         toast.error("You didn't enter all information");
         console.log(client)
       }
-      else if(client.email!== clientEmail)
-      {
-        toast.error("You have entered wrong email!");
-      }
       
       else{
-        const body = {name:name,price:price, description:description, clientEmail:clientEmail}
+        const body = {name:name,price:price, description:description, clientEmail:client.email}
         const response = await apiRequest(token).post("/products/add",body)
   
         if(response?.data){
@@ -67,8 +62,6 @@ const AddProduct = ({ setNewProductPage }) => {
           }
         }
         window.location.reload(true)
-        
-        console.log(response.data)
       }
     }
 
@@ -113,16 +106,6 @@ const AddProduct = ({ setNewProductPage }) => {
             onChange={(event) => setDescription(event.target.value)}
             className="wide-input"
           ></textarea>
-        </div>
-        <div>
-          <label htmlFor="clientEmail">Client Email:</label>
-          <input
-            type="email"
-            id="clientEmail"
-            value={clientEmail}
-            onChange={(event) => setClientEmail(event.target.value)}
-            className="wide-input"
-          />
         </div>
         {}
         <button className= "button" type="submit">Add Product</button>

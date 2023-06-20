@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import { clearClientData } from './redux/clientReducer';
 import man from './5087579.png'
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import checkTokenExpiration from './utils/checkTokenExpiration';
 
     
     
@@ -17,22 +19,25 @@ const NavbarLogoff= () => {
 
   const [showOptions, setShowOptions] = useState(false);
 
- const navigate = useNavigate()
-const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const client = useSelector(state => state.client.data);
+  const token = client.accessToken;
 
 
 const changeOptions=()=>{
   setShowOptions(!showOptions)
 }
 
-const changePassword=()=>{
-
+const changePassword=async()=>{
+  navigate("/changePass")
 }
 const logoff = () => {
     dispatch(logout())
     dispatch(clearClientData())
     navigate("/login")
   }
+
 
   const openSearch = () => {
     navigate("/allproducts")

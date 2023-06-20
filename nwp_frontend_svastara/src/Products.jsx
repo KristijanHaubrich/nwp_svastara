@@ -18,7 +18,7 @@ const Products = ({ product, showButtons, showEmail }) => {
 
   const toggleEditMode = () => {
     setUpdatePressed(!updatePressed);
-    setEditedProduct({ ...product }); // Reset the edited product to the current product data
+    setEditedProduct({ ...product });
   };
 
   const handleInputChange = (e) => {
@@ -74,22 +74,34 @@ const Products = ({ product, showButtons, showEmail }) => {
       logoff()
       return
     }
-    console.log(editedProduct)
+    if(editedProduct.price != "" && editedProduct.description!= "")
+    {
+
+       console.log(editedProduct)
     const body = {name: editedProduct.name,price: editedProduct.price,description: editedProduct.description}
     console.log(body)
-    try {
-      const response = await apiRequest(token).patch(`/products/update`, body);
-      console.log(response.data)
-      if (response.data.isProductUpdated) {
+    const response= await apiRequest(token).patch("/products/update", body)
+    if(response?.data){
+      if(response.data.isProductUpdated){
+        const response1= await apiRequest(token).get(`/clients/${client.email}`)
+        if(response1?.data){
+          console.log(response1.data.client)
+         dispatch(setClientData({data:response1.data.client}))
+          window.location.reload(false);
+        }
         toggleEditMode();
-        toast.success("Product updated successfully!");
+        toast.success("Product successfully updated!")
       }
-    } catch (error) {
-      toast.error("Error occurred while updating the product!");
-      console.error("Error updating product:", error);
+      else{
+        toast.error("Product is not updated!")
+      }
     }
+    }
+    else{
+      toast.error("Some inputs are empty!")
+    }
+   
     
-  toggleEditMode();
   };
 
   const cancelChanges = async() =>{
@@ -102,14 +114,7 @@ const Products = ({ product, showButtons, showEmail }) => {
 {updatePressed ? (
         <div>
          <div className="input-group">
-            <label htmlFor="name">Name:</label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={editedProduct.name}
-              onChange={handleInputChange}
-            />
+            <label htmlFor="name">{editedProduct.name}</label>
           </div>
           <div className="input-group">
             <label htmlFor="price">Price:</label>
