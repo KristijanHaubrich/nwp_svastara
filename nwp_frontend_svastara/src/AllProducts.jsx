@@ -18,6 +18,7 @@ const AllProducts = () => {
 
   const client = useSelector(state => state.client.data);
   const token = client.accessToken;
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -28,6 +29,8 @@ const AllProducts = () => {
   };
 
   useEffect(() => {
+    
+
     const fetchProducts = async () => {
       if(checkTokenExpiration(token)){
         logoff()
@@ -56,6 +59,7 @@ const AllProducts = () => {
   };
 
   const filteredProducts = products.filter((product) => {
+    console.log(client.products)
     const productNameMatches = product.name.toLowerCase().includes(searchValue.toLowerCase());
     const priceInRange =
       maxPrice !== '' ? parseFloat(product.price) <= parseFloat(maxPrice) : true;

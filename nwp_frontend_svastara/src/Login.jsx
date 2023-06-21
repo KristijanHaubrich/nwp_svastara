@@ -46,7 +46,6 @@ const LoginPage = () => {
           toast.error("Wrong password!");
         }
       }else{
-        //izbaci upozorenje za problem s konekcijom na bazu
         toast.error("Server error!");
       }
     }
@@ -56,7 +55,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div>
+    <div className='cijeli'>
       <h2>Login Page</h2>
       <form onSubmit={handleSubmit}>
        

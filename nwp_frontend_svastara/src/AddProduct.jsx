@@ -89,7 +89,7 @@ const AddProduct = ({ setNewProductPage }) => {
           />
         </div>
         <div>
-          <label htmlFor="price">Price:</label>
+          <label  htmlFor="price">Price:</label>
           <input
             type="number"
             id="price"
@@ -99,7 +99,7 @@ const AddProduct = ({ setNewProductPage }) => {
           />
         </div>
         <div>
-          <label htmlFor="description">Description:</label>
+          <label  htmlFor="description">Description:</label>
           <textarea
             id="description"
             value={description}

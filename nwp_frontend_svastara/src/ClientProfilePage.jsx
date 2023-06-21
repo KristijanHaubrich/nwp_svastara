@@ -34,7 +34,7 @@ const ClientProfilePage =  () => {
   return (
     
 
-    <div>
+    <div className='titles'>
       <h2>Your products:</h2>
       {products.length === 0 ? (
         <h1>You don't have any products</h1>

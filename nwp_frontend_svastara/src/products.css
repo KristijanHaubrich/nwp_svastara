@@ -1,3 +1,7 @@
+
+html{
+  background-image: linear-gradient(to right, #12011c , #350354);
+}
 .product-card {
     background-color: #71d9ba;
     padding: 10px;
@@ -12,20 +16,51 @@
     justify-content: center;
     margin-top: 20px;
   }
+  .buttonred{
+    background-color: #5e0d08;
+    width: 100px;
+    left: 40px;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.4);
+    margin: 10px;
+   
+  }
   .button{
     background-color: #5e0d08;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.4);
     width: 100px;
     left: 40px;
     
     margin: 10px;
    
   }
+  .buttonupdate{
+    background-color: #411854;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.4);
+    width: 100px;
+    left: 40px;
+    
+    margin: 10px;
+   
+  }
+  .buttonupdate:hover{
+    background-color: black;
+    color: white;
+  }
+
   .button:hover{
     background-color: black;
     color: white;
   }
+
+  .buttonred:hover{
+    background-color: #7a0a2a;
+    color: white;
+  }
+
+  
   .product-card {
-    background-color: #71d9ba;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.8);
+    background-color: #65368a;
     padding: 20px;
     margin-bottom: 20px;
     display: flex;
@@ -64,18 +99,18 @@
   }
 
   .newButton{
-   background-color:  #945512;
+   background-color:  #296ca6;
    width: 100px;
    height: 80px;
    
   }
   .newButton:hover{
-    background-color: #042617;
+    background-color: #3779b3;
     
   }
   #parentnew{
     text-align: center;
-    margin-bottom: 30px;
+    padding-bottom: 30px;
   }
   .search-bar {
     margin-bottom: 20px;
@@ -84,15 +119,19 @@
           
     
   }
-  .price-filter{
 
-  }
-  
     .searches {
       margin: 50px;
       background-color: #042617;
       text-align: center;
       border-radius: 20px;
       padding: 20px;
+    }
+    
+    .titles{
+      color: white;
+      font-size: 20px;
+      font-weight: bold;
+      font-family: 'Teko', sans-serif;
     }
     

@@ -13,7 +13,6 @@ import checkTokenExpiration from './utils/checkTokenExpiration';
     
     
     
-  
 
 const NavbarLogoff= () => {
 
@@ -34,8 +33,9 @@ const changePassword=async()=>{
 }
 const logoff = () => {
     dispatch(logout())
-    dispatch(clearClientData())
     navigate("/login")
+    dispatch(clearClientData())
+    
   }
 
 

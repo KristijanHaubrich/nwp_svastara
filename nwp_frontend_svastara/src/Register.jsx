@@ -36,7 +36,6 @@ const RegisterPage = () => {
     }else{
       if(password === reppassword){
         const response = await apiRequest("").get(`/public/checkClientEmail/${email}`)
-        console.log(response.data)
         if(response?.data){
           if(response.data.validate){
             //baci error korisnik vec postoji
