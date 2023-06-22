@@ -59,7 +59,6 @@ const AllProducts = () => {
   };
 
   const filteredProducts = products.filter((product) => {
-    console.log(client.products)
     const productNameMatches = product.name.toLowerCase().includes(searchValue.toLowerCase());
     const priceInRange =
       maxPrice !== '' ? parseFloat(product.price) <= parseFloat(maxPrice) : true;
