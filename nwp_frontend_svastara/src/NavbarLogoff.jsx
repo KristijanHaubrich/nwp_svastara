@@ -32,10 +32,15 @@ const changeOptions=()=>{
 const changePassword=async()=>{
   navigate("/changePass")
 }
+
 const logoff = () => {
-    dispatch(logout())
+  setTimeout(function() {
     dispatch(clearClientData())
+  }, 1000);
+    dispatch(logout())
     navigate("/login")
+    
+    
   }
 
 

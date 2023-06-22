@@ -55,12 +55,18 @@ const AllProducts = () => {
     setMaxPrice(e.target.value);
   };
 
-  const filteredProducts = products.filter((product) => {
-    const productNameMatches = product.name.toLowerCase().includes(searchValue.toLowerCase());
-    const priceInRange =
-      maxPrice !== '' ? parseFloat(product.price) <= parseFloat(maxPrice) : true;
-    return productNameMatches && priceInRange && !client.products.some(cpItem => cpItem.id === product.id);
-  });
+  const filteredProducts = () => {
+        if(!client.products === undefined){
+           return products.filter((product) => {
+            const productNameMatches = product.name.toLowerCase().includes(searchValue.toLowerCase());
+            const priceInRange =
+              maxPrice !== '' ? parseFloat(product.price) <= parseFloat(maxPrice) : true;
+            return productNameMatches && priceInRange && !client.products.some(cpItem => cpItem.id === product.id);
+          });
+        }
+  } 
+
+   
 
   return (
     <div>
@@ -96,13 +102,15 @@ const AllProducts = () => {
         </div>
       </div>
 
-      {filteredProducts.length === 0 ? (
+      {filteredProducts() === undefined ? (
         <h2 >No product matched the filter</h2>
       ) : (
         <div className="product-card-container">
-          {filteredProducts.map((product) => (
-            <Products key={product.id} product={product} showButtons={false} showEmail={true} />
-          ))}
+          {
+              filteredProducts.map((product) => (
+                <Products key={product.id} product={product} showButtons={false} showEmail={true} />
+              ))
+          }
         </div>
       )}
     </div>
