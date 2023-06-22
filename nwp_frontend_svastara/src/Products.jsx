@@ -62,7 +62,6 @@ const Products = ({ product, showButtons, showEmail }) => {
     } catch (error) {
 
       toast.error("Error happened!");
-      console.error("Error deleting product:", error);
     }
   }
   const updateProduct = async () => {
@@ -77,15 +76,12 @@ const Products = ({ product, showButtons, showEmail }) => {
     if(editedProduct.price != "" && editedProduct.description!= "")
     {
 
-       console.log(editedProduct)
     const body = {name: editedProduct.name,price: editedProduct.price,description: editedProduct.description}
-    console.log(body)
     const response= await apiRequest(token).patch("/products/update", body)
     if(response?.data){
       if(response.data.isProductUpdated){
         const response1= await apiRequest(token).get(`/clients/${client.email}`)
         if(response1?.data){
-          console.log(response1.data.client)
          dispatch(setClientData({data:response1.data.client}))
           window.location.reload(false);
         }
@@ -149,11 +145,12 @@ const Products = ({ product, showButtons, showEmail }) => {
       {showEmail ? (<p>Email: {product.clientEmail}</p>):(<></>)}
 {showButtons? (
 <div>
-      <button className="button" onClick={deleteProduct}>
-        Delete product
-      </button>
-      <button className="button" onClick={updateProduct}>
+      
+      <button className="buttonupdate" onClick={updateProduct}>
         Update product
+      </button>
+      <button className="buttonred" onClick={deleteProduct}>
+        Delete product
       </button>
 
       </div>

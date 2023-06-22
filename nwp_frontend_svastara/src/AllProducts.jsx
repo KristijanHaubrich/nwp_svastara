@@ -18,6 +18,7 @@ const AllProducts = () => {
 
   const client = useSelector(state => state.client.data);
   const token = client.accessToken;
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -28,6 +29,8 @@ const AllProducts = () => {
   };
 
   useEffect(() => {
+    
+
     const fetchProducts = async () => {
       if(checkTokenExpiration(token)){
         logoff()

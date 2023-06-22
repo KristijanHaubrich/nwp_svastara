@@ -1,28 +1,27 @@
-/* LoginPage.css */
-.login-page {
-  width: 400px;
-  margin: 0 auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #a8e6c7; /* Green background color */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+html{
+  background-image: linear-gradient(to right, #12011c , #350354);
 }
+
 
 h2 {
   text-align: center;
 }
 
 form {
+  
   display: flex;
+  color: wheat;
+  font-family: 'Teko', sans-serif;
+  font-size: 20px;
+  font-weight: bold;
   flex-direction: column;
   align-items: center;
+  
 }
 
 label {
-  margin-bottom: 10px;
+  margin-bottom: 20px;
+  margin-right: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -35,6 +34,7 @@ label span {
 
 input {
   padding: 8px;
+  margin: 10px;
   border-radius: 5px;
   border: 1px solid #ccc;
   width: 20%;
@@ -43,9 +43,9 @@ input {
 
 button {
   padding: 10px;
-  width: 8%; /* Adjust the width as needed */
-  margin-top: 10px; /* Add margin-top to separate the button from input boxes */
-  background-color: #007bff;
+  width: 120px; 
+  margin: 20px; 
+  background-color:  #296ca6;
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -54,4 +54,7 @@ button {
 
 button:hover {
   background-color: #0069d9;
+}
+h2{
+  color: wheat;
 }

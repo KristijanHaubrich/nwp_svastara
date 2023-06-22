@@ -43,7 +43,6 @@ const ChangePassword = () => {
                 toast.error("Repeated password doesn't match new password")
             }else{
                 const body = {oldPassword: oldPassword, newPassword: newPassword, email: client.email}
-                console.log(body)
                 const response = await apiRequest(token).patch("/clients/changePass",body)
                 if(response?.data){
                     if(response.data.isOldPasswordMatch){
